@@ -16,7 +16,7 @@ My page in [LinkedIn](https://www.linkedin.com/in/marks-ositis)
 10.	Fiddler
 
 ## My work experience
- <br>	:globe_with_meridians: Content management system testing (Coupled CMS, SaaS CMS)
+ :globe_with_meridians: Content management system testing (Coupled CMS, SaaS CMS)
  <br>	:globe_with_meridians: Freelance <br>  
 - Idemia - Face & ID Capture Testing
 - Avon ON Android and Justine Android
