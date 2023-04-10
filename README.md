@@ -23,5 +23,5 @@ My page in [LinkedIn](https://www.linkedin.com/in/marks-ositis)
 - Avon ON Android and Justine Android
 - Pandora Media - PandoraX - Android 
 
-
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=NODmarc)](https://github.com/NODmarc/github-readme-stats)
 
