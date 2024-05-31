@@ -4,16 +4,16 @@ I am a software test engineer. :beetle: <br>
 My page in [LinkedIn](https://www.linkedin.com/in/marks-ositis)
   
 ## Technology stack
-1.	MS SharePoint
-2.	HTML & CSS
-3.	JSON
-4.	CAML
-5.	PowerShell
-6.	Microsoft Azure
-7.	MySQL
-8.	Charles Proxy
-9.	Android SDK
-10.	Fiddler
+1. Manual Testing (static, sanity, regress, smoke)
+2. Python, Pytest, Selenium, Playwright
+3. Postman
+4. PowerShell, Zsh
+5. HTML & CSS
+6. Azure, Jira
+7. MS Sharepoint
+8. JSON
+9. MySQL
+
 
 ## My work experience
  :globe_with_meridians: Content management system testing (Coupled CMS, SaaS CMS)
