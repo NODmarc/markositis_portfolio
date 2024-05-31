@@ -23,4 +23,13 @@ class CheckBoxPageLocators:
     ITEM_LIST = (By. CSS_SELECTOR, "span[class='rct-title']")
     CHECKED_ITEMS = (By.CSS_SELECTOR, "svg[class='rct-icon rct-icon-check']")
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
-    OUTPUT_RESULT = (By.CSS_SELECTOR, 'span[class="text-success"]')
+    OUTPUT_RESULT_CHECKBOX = (By.CSS_SELECTOR, 'span[class="text-success"]')
+
+
+class RadioButtonLocators:
+
+    YES_RADIO_BTN = (By.CSS_SELECTOR, "label[for='yesRadio']")
+    IMPRESSIVE_RADIO_BTN = (By.CSS_SELECTOR, "label[for='impressiveRadio']")
+    NO_RADIO_BTN = (By.CSS_SELECTOR, "label[for='noRadio']")
+    CHECKED_RADIO_BTN = ".//ancestor::label[@class='custom-control-label']"
+    OUTPUT_RESULT_RADIOBUTTON = (By.CSS_SELECTOR, 'p span[class="text-success"]')
