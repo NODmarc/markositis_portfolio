@@ -25,5 +25,7 @@ My page in [LinkedIn](https://www.linkedin.com/in/marks-ositis)
 ## Examples of Work
 
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=NODmarc)](https://github.com/NODmarc/github-readme-stats)
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=markositis_portfolio)](https://github.com/NODmarc/github-readme-stats)
+
+https://github.com/NODmarc/markositis_portfolio.git
 
