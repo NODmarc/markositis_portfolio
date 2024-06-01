@@ -33,3 +33,22 @@ class RadioButtonLocators:
     NO_RADIO_BTN = (By.CSS_SELECTOR, "label[for='noRadio']")
     CHECKED_RADIO_BTN = ".//ancestor::label[@class='custom-control-label']"
     OUTPUT_RESULT_RADIOBUTTON = (By.CSS_SELECTOR, 'p span[class="text-success"]')
+
+
+class WebTablePageLocators:
+
+    ADD_BUTTON = (By.CSS_SELECTOR, "button[id='addNewRecordButton']")
+    FIRST_NAME = (By.CSS_SELECTOR, "input[id='firstName']")
+    LAST_NAME = (By.CSS_SELECTOR, "input[id='lastName']")
+    EMAIL = (By.CSS_SELECTOR, "input[id='userEmail']")
+    AGE = (By.CSS_SELECTOR, "input[id='age']")
+    SALARY = (By.CSS_SELECTOR, "input[id='salary']")
+    DEPARTMENT = (By.CSS_SELECTOR, "input[id='department']")
+    SUBMIT_BUTTON = (By.CSS_SELECTOR, "button[id='submit']")
+    CLOSE_BUTTON = (By.CSS_SELECTOR, "button[class='close']")
+
+    # table
+    FULL_PEOPLE_LIST = (By.CSS_SELECTOR, "div[class='rt-tr-group']")
+    SEARCH = (By.CSS_SELECTOR, "input[id='searchBox']")
+    DELETE_BUTTON = (By.CSS_SELECTOR, "span[title='Delete']")
+    ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"

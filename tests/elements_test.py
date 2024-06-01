@@ -1,7 +1,8 @@
+import random
 import time
 
-import locators.elements_page_locators
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, \
+    WebTablePage
 
 
 class TestElements:
@@ -41,3 +42,28 @@ class TestElements:
             assert 'Yes' == output_result_yes, 'Yes have not been select'
             assert 'Impressive' == output_result_impressive, 'Impressive have not been select'
             assert 'No' == output_result_no, 'No have not been select'
+
+    class TestWebTable:
+
+        def test_web_table_add_person(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            new_person = web_table_page.add_new_person(count=1)
+            person_in_table = web_table_page.check_new_added_person()
+            assert new_person in person_in_table, 'Person not added in table'
+
+        def test_web_table_search_person(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            keyword = web_table_page.add_new_person(count=1)[random.randint(0,5)]
+            web_table_page.search_person(keyword)
+            searched_person = web_table_page.check_searched_person()
+            assert keyword in searched_person, 'Person non exist in table'
+
+
+
+
+
+        # def test_web_table_edit_person(self):
+        # def test_web_table_delete_person(self):
+        # def test_web_table_row_adding(self):
