@@ -31,7 +31,8 @@ class TestElements:
 
     class TestRadioButton:
         def test_radio_button(self, driver):
-            radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radio_button_page = RadioButtonPage(driver,
+                                                'https://demoqa.com/radio-button')
             radio_button_page.open()
             radio_button_page.click_on_radio_button('yes')
             output_result_yes = radio_button_page.get_selected_result()
@@ -46,24 +47,48 @@ class TestElements:
     class TestWebTable:
 
         def test_web_table_add_person(self, driver):
-            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page = WebTablePage(driver,
+                                          'https://demoqa.com/webtables')
             web_table_page.open()
             new_person = web_table_page.add_new_person(count=1)
             person_in_table = web_table_page.check_new_added_person()
             assert new_person in person_in_table, 'Person not added in table'
 
         def test_web_table_search_person(self, driver):
-            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page = WebTablePage(driver,
+                                          'https://demoqa.com/webtables')
             web_table_page.open()
             keyword = web_table_page.add_new_person(count=1)[random.randint(0,5)]
             web_table_page.search_person(keyword)
             searched_person = web_table_page.check_searched_person()
             assert keyword in searched_person, 'Person non exist in table'
 
+        def test_web_table_edit_person(self, driver):
+            web_table_page = WebTablePage(driver,
+                                          'https://demoqa.com/webtables')
+            web_table_page.open()
+            keyword = web_table_page.add_new_person(count=1)[random.randint(0, 5)]
+            web_table_page.search_person(keyword)
+            random_field = web_table_page.update_person_info()
+            row = web_table_page.check_searched_person()
+            assert random_field in row, 'Person card is not editable'
+
+        def test_web_table_delete_person(self, driver):
+            web_table_page = WebTablePage(driver,
+                                          'https://demoqa.com/webtables')
+            web_table_page.open()
+            keyword = web_table_page.add_new_person(count=1)[
+                random.randint(0, 5)]
+            web_table_page.search_person(keyword)
+            web_table_page.delete_person_info()
+            row = web_table_page.check_deleted()
+            assert row == 'No rows found'
+
+        def test_web_table_row_adding(self, driver):
+            web_table_page = WebTablePage(driver,
+                                          'https://demoqa.com/webtables')
+            web_table_page.open()
+            count = web_table_page.select_up_to_some_rows()
+            assert count == [5, 10, 20, 25, 50, 100], 'The number of rows in the table has not been changed'
 
 
-
-
-        # def test_web_table_edit_person(self):
-        # def test_web_table_delete_person(self):
-        # def test_web_table_row_adding(self):
