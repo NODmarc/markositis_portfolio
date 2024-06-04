@@ -5,7 +5,8 @@ from selenium.webdriver.common.by import By
 
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, \
-    CheckBoxPageLocators, RadioButtonLocators, WebTablePageLocators
+    CheckBoxPageLocators, RadioButtonLocators, WebTablePageLocators, \
+    ButtonPageLocators
 from pages.base_page import BasePage
 
 
@@ -152,7 +153,7 @@ class WebTablePage(BasePage):
                        person_info.email,
                        person_info.salary,
                        person_info.department]
-        random_data = person_data[random.randint(0,  5)]
+        random_data = person_data[random.randint(0, 5)]
         if random_data == person_info.age:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.AGE).clear()
@@ -162,31 +163,36 @@ class WebTablePage(BasePage):
         elif random_data == person_info.firstname:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME).clear()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(random_data)
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(
+                random_data)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             return str(random_data)
         elif random_data == person_info.lastname:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME).clear()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(random_data)
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(
+                random_data)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             return str(random_data)
         elif random_data == person_info.email:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME).clear()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(random_data)
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(
+                random_data)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             return str(random_data)
         elif random_data == person_info.salary:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME).clear()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(random_data)
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(
+                random_data)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             return str(random_data)
         elif random_data == person_info.department:
             self.element_is_visible(self.locators.EDIT_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME).clear()
-            self.element_is_visible(self.locators.FIRST_NAME).send_keys(random_data)
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(
+                random_data)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             return str(random_data)
         else:
@@ -211,12 +217,34 @@ class WebTablePage(BasePage):
         count = [5, 10, 20, 25, 50, 100]
         data = []
         for x in count:
-            count_row_btn = self.element_is_visible(self.locators.COUNT_ROW_LIST)
+            count_row_btn = self.element_is_visible(
+                self.locators.COUNT_ROW_LIST)
             self.go_to_element(count_row_btn)
             count_row_btn.click()
-            self.element_is_visible((By.CSS_SELECTOR, f'option[value="x"]')).click()
+            self.element_is_visible(
+                (By.CSS_SELECTOR, f'option[value="x"]')).click()
             data.append(self.check_count_rows())
 
     def check_count_rows(self):
         list_rows = self.element_are_present(self.locators.FULL_PEOPLE_LIST)
         return len(list_rows)
+
+
+class ButtonsPage(BasePage):
+    locators = ButtonPageLocators()
+
+    def click_on_diff_btn(self, type_click):
+        if type_click == "double":
+            self.action_double_click(
+                self.element_is_visible(self.locators.DOUBLE_BTN))
+            return self.check_clicked_on_button(self.locators.SUCESS_DOUBLE)
+        if type_click == "right":
+            self.action_right_click(
+                self.element_is_visible(self.locators.RIGHT_CLICK_BTN))
+            return self.check_clicked_on_button(self.locators.SUCESS_RIGHT)
+        if type_click == "click":
+            self.element_is_visible(self.locators.CLICK_ME).click()
+            return self.check_clicked_on_button(self.locators.SUCESS_CLICK_ME)
+
+    def check_clicked_on_button(self, element):
+        return self.element_is_present(element).text
