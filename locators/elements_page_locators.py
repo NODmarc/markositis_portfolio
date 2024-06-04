@@ -67,3 +67,16 @@ class ButtonPageLocators:
     SUCCESS_DOUBLE = (By.CSS_SELECTOR, "p[id='doubleClickMessage']")
     SUCCESS_RIGHT = (By.CSS_SELECTOR, "p[id='rightClickMessage']")
     SUCCESS_CLICK_ME = (By.CSS_SELECTOR, "p[id='dynamicClickMessage']")
+
+
+class LinksPageLocators:
+
+    SIMPLE_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
+    DYNAMIC_LINK = (By.XPATH, "//div[2]/p[2]/a")
+    CREATED_LINK = (By.CSS_SELECTOR, "a[id='created']")
+    NO_CONTENT_LINK = (By.CSS_SELECTOR, "a[id='no-content']")
+    MOVED_LINK = (By.CSS_SELECTOR, "a[id='moved']")
+    BAD_REQUEST_LINK = (By.CSS_SELECTOR, "a[id='bad-request']")
+    UNAUTHORIZED_LINK = (By.CSS_SELECTOR, "a[id='unauthorized']")
+    FORBIDDEN_LINK = (By.CSS_SELECTOR, "a[id='forbidden']")
+    INVALID_URL_LINK = (By.CSS_SELECTOR, "a[id='invalid-url']")
