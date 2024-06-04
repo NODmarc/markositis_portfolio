@@ -1,12 +1,13 @@
 import random
 import time
 
+import requests
 from selenium.webdriver.common.by import By
 
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, \
     CheckBoxPageLocators, RadioButtonLocators, WebTablePageLocators, \
-    ButtonPageLocators
+    ButtonPageLocators, LinksPageLocators
 from pages.base_page import BasePage
 
 
@@ -237,14 +238,74 @@ class ButtonsPage(BasePage):
         if type_click == "double":
             self.action_double_click(
                 self.element_is_visible(self.locators.DOUBLE_BTN))
-            return self.check_clicked_on_button(self.locators.SUCESS_DOUBLE)
+            return self.check_clicked_on_button(self.locators.SUCCESS_DOUBLE)
         if type_click == "right":
             self.action_right_click(
                 self.element_is_visible(self.locators.RIGHT_CLICK_BTN))
-            return self.check_clicked_on_button(self.locators.SUCESS_RIGHT)
+            return self.check_clicked_on_button(self.locators.SUCCESS_RIGHT)
         if type_click == "click":
             self.element_is_visible(self.locators.CLICK_ME).click()
-            return self.check_clicked_on_button(self.locators.SUCESS_CLICK_ME)
+            return self.check_clicked_on_button(self.locators.SUCCESS_CLICK_ME)
 
     def check_clicked_on_button(self, element):
         return self.element_is_present(element).text
+
+
+class LinksPage(BasePage):
+    locators = LinksPageLocators()
+
+    def check_new_tab(self, link):
+        if link == "simple":
+            simple_link = self.element_is_visible(self.locators.SIMPLE_LINK)
+            link_href = simple_link.get_attribute('href')
+            request = requests.get(link_href)
+            if request.status_code == 200:
+                simple_link.click()
+                new_tab_url = BasePage.switch_to_new_tab(self)
+                return link_href, new_tab_url
+            else:
+                return link_href, request.status_code
+        if link == 'dynamic':
+            simple_link = self.element_is_visible(self.locators.DYNAMIC_LINK)
+            link_href = simple_link.get_attribute('href')
+            request = requests.get(link_href)
+            if request.status_code == 200:
+                simple_link.click()
+                new_tab_url = BasePage.switch_to_new_tab(self)
+                return link_href, new_tab_url
+            else:
+                return link_href, request.status_code
+
+    def check_request_status_code(self, endpoint):
+        url = 'https://demoqa.com'
+        if endpoint == '/invalid-url':
+            self.element_is_present(self.locators.INVALID_URL_LINK).click()
+            response = requests.get(f'{url}'+f'{endpoint}')
+            return response.status_code
+        if endpoint == "/forbidden":
+            self.element_is_present(self.locators.FORBIDDEN_LINK).click()
+            response = requests.get(f'{url}' + f'{endpoint}')
+            return response.status_code
+        if endpoint == '/unauthorized':
+            self.element_is_present(self.locators.UNAUTHORIZED_LINK).click()
+            response = requests.get(f'{url}' + f'{endpoint}')
+            return response.status_code
+        if endpoint == '/moved':
+            self.element_is_present(self.locators.MOVED_LINK).click()
+            response = requests.get(f'{url}' + f'{endpoint}')
+            return response.status_code
+        if endpoint == '/no-content':
+            self.element_is_present(self.locators.NO_CONTENT_LINK).click()
+            response = requests.get(f'{url}' + f'{endpoint}')
+            return response.status_code
+        if endpoint == '/created':
+            self.element_is_present(self.locators.CREATED_LINK).click()
+            response = requests.get(f'{url}' + f'{endpoint}')
+            return response.status_code
+
+    def check_broken_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.BAD_REQUEST_LINK).click()
+        else:
+            return r.status_code

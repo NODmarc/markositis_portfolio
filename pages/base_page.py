@@ -47,3 +47,9 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
+
+    def switch_to_new_tab(self):
+        self.driver.switch_to.window(self.driver.window_handles[1])
+        url = self.driver.current_url
+        return url
+
