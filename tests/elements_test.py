@@ -2,7 +2,7 @@ import random
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, \
-    WebTablePage, ButtonsPage, LinksPage
+    WebTablePage, ButtonsPage, LinksPage, FilePage
 
 
 class TestElements:
@@ -158,5 +158,19 @@ class TestElements:
             links_page.open()
             response_code = links_page.check_request_status_code(endpoint='/invalid-url')
             assert response_code == 404
+
+    class TestUploadDownloadPage:
+
+        def test_file_upload(self, driver):
+            file_page = FilePage(driver, 'https://demoqa.com/upload-download')
+            file_page.open()
+            file_name, result = file_page.upload_file()
+            assert file_name == result, 'the file has not uploaded'
+
+        def test_file_download(self, driver):
+            file_page = FilePage(driver, 'https://demoqa.com/upload-download')
+            file_page.open()
+            file = file_page.download_file()
+            assert file is True, 'the file has not downloaded'
 
 
