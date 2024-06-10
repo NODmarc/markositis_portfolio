@@ -2,7 +2,7 @@ import random
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, \
-    WebTablePage, ButtonsPage, LinksPage, FilePage
+    WebTablePage, ButtonsPage, LinksPage, FilePage, DynamicPropertiesPage
 
 
 class TestElements:
@@ -21,7 +21,8 @@ class TestElements:
 
     class TestCheckBox:
         def test_check_box(self, driver):
-            check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
+            check_box_page = CheckBoxPage(driver,
+                                          'https://demoqa.com/checkbox')
             check_box_page.open()
             check_box_page.open_full_list()
             check_box_page.click_random_checkbox()
@@ -58,7 +59,8 @@ class TestElements:
             web_table_page = WebTablePage(driver,
                                           'https://demoqa.com/webtables')
             web_table_page.open()
-            keyword = web_table_page.add_new_person(count=1)[random.randint(0,5)]
+            keyword = web_table_page.add_new_person(count=1)[
+                random.randint(0, 5)]
             web_table_page.search_person(keyword)
             searched_person = web_table_page.check_searched_person()
             assert keyword in searched_person, 'Person non exist in table'
@@ -67,7 +69,8 @@ class TestElements:
             web_table_page = WebTablePage(driver,
                                           'https://demoqa.com/webtables')
             web_table_page.open()
-            keyword = web_table_page.add_new_person(count=1)[random.randint(0, 5)]
+            keyword = web_table_page.add_new_person(count=1)[
+                random.randint(0, 5)]
             web_table_page.search_person(keyword)
             random_field = web_table_page.update_person_info()
             row = web_table_page.check_searched_person()
@@ -89,7 +92,8 @@ class TestElements:
                                           'https://demoqa.com/webtables')
             web_table_page.open()
             count = web_table_page.select_up_to_some_rows()
-            assert count == [5, 10, 20, 25, 50, 100], 'The number of rows in the table has not been changed'
+            assert count == [5, 10, 20, 25, 50,
+                             100], 'The number of rows in the table has not been changed'
 
     class TestButtonPage:
 
@@ -120,43 +124,50 @@ class TestElements:
         def test_created_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/created')
+            response_code = links_page.check_request_status_code(
+                endpoint='/created')
             assert response_code == 201
 
         def test_no_content_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/no-content')
+            response_code = links_page.check_request_status_code(
+                endpoint='/no-content')
             assert response_code == 204
 
         def test_moved_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/moved')
+            response_code = links_page.check_request_status_code(
+                endpoint='/moved')
             assert response_code == 301
 
         def test_broken_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
+            response_code = links_page.check_broken_link(
+                'https://demoqa.com/bad-request')
             assert response_code == 400
 
         def test_unauthorized_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/unauthorized')
+            response_code = links_page.check_request_status_code(
+                endpoint='/unauthorized')
             assert response_code == 401
 
         def test_forbidden_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/forbidden')
+            response_code = links_page.check_request_status_code(
+                endpoint='/forbidden')
             assert response_code == 403
 
         def test_not_found_request(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_request_status_code(endpoint='/invalid-url')
+            response_code = links_page.check_request_status_code(
+                endpoint='/invalid-url')
             assert response_code == 404
 
     class TestUploadDownloadPage:
@@ -173,4 +184,25 @@ class TestElements:
             file = file_page.download_file()
             assert file is True, 'the file has not downloaded'
 
+    class TestDynamicPropertiesPage:
 
+        def test_clickable_btn(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver,
+                                                            'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            enable_btn = dynamic_properties_page.check_enable_btn()
+            assert enable_btn is True, "Button 'Will enable 5 seconds' is not clickable"
+
+        def test_color_btn_dynamic_properties(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver,
+                                                            'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            color_before, color_after = dynamic_properties_page.check_changed_color()
+            assert color_before != color_after, "Color is not changed"
+
+        def test_appears_btn(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver,
+                                                            'https://demoqa.com/dynamic-properties')
+            dynamic_properties_page.open()
+            appear = dynamic_properties_page.check_appears_btn()
+            assert appear is True, "Button 'Visible After 5 Seconds' is not visible"
