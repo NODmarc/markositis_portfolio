@@ -4,12 +4,14 @@ import random
 import time
 
 import requests
+from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 
 from generator.generator import generated_person, generated_file
 from locators.elements_page_locators import TextBoxPageLocators, \
     CheckBoxPageLocators, RadioButtonLocators, WebTablePageLocators, \
-    ButtonPageLocators, LinksPageLocators, FilePageLocators
+    ButtonPageLocators, LinksPageLocators, FilePageLocators, \
+    DynamicPropertiesLocators
 from pages.base_page import BasePage
 
 
@@ -282,7 +284,7 @@ class LinksPage(BasePage):
         url = 'https://demoqa.com'
         if endpoint == '/invalid-url':
             self.element_is_present(self.locators.INVALID_URL_LINK).click()
-            response = requests.get(f'{url}'+f'{endpoint}')
+            response = requests.get(f'{url}' + f'{endpoint}')
             return response.status_code
         if endpoint == "/forbidden":
             self.element_is_present(self.locators.FORBIDDEN_LINK).click()
@@ -324,7 +326,8 @@ class FilePage(BasePage):
         return file_name.split('/')[-1], text.split('\\')[-1]
 
     def download_file(self):
-        link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
+        link = self.element_is_present(
+            self.locators.DOWNLOAD_FILE).get_attribute('href')
         link_b = base64.b64decode(link)
         path_name_file = rf'/Users/markositis/Downloads/filetest{random.randint(0, 999)}.jpeg'
         with open(path_name_file, 'wb+') as f:
@@ -335,3 +338,27 @@ class FilePage(BasePage):
         os.remove(path_name_file)
         return check_file
 
+
+class DynamicPropertiesPage(BasePage):
+    locators = DynamicPropertiesLocators()
+
+    def check_enable_btn(self):
+        try:
+            self.element_is_clickable(self.locators.ENABLE_AFTER_BUTTON, 6)
+        except TimeoutException:
+            return False
+        return True
+
+    def check_changed_color(self):
+        color_btn = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON)
+        color_btn_before = color_btn.value_of_css_property('color')
+        time.sleep(6)
+        color_btn_after = color_btn.value_of_css_property('color')
+        return color_btn_before, color_btn_after
+
+    def check_appears_btn(self):
+        try:
+            self.element_is_visible(self.locators.VISIBLE_AFTER_BUTTON, 6)
+        except TimeoutException:
+            return False
+        return True

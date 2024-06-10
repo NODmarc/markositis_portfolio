@@ -52,4 +52,3 @@ class BasePage:
         self.driver.switch_to.window(self.driver.window_handles[1])
         url = self.driver.current_url
         return url
-
