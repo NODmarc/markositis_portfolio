@@ -16,7 +16,7 @@ My page in [LinkedIn](https://www.linkedin.com/in/marks-ositis)
 
 ## My work experience
  :globe_with_meridians: Content management system testing (Coupled CMS, SaaS CMS)
- <br>	:globe_with_meridians: Freelance <br>
+ <br>	:globe_with_meridians: Freelance
  <br>	:globe_with_meridians: Integration testing in the digital advertising field <br>
 - Idemia - Face & ID Capture Testing
 - Avon ON Android and Justine Android
