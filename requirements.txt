@@ -2,3 +2,4 @@ pytest~=8.2.1
 selenium~=4.21.0
 webdriver-manager~=4.0.1
 Faker~=25.3.0
+requests~=2.32.3
