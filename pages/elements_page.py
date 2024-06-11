@@ -91,7 +91,7 @@ class RadioButtonPage(BasePage):
         choices = {
             'yes': self.locators.YES_RADIO_BTN,
             'impressive': self.locators.IMPRESSIVE_RADIO_BTN,
-            'no': self.locators.NO_RADIO_BTN
+            'no': self.locators.NO_RADIO_BTN,
         }
         self.element_is_visible(choices[choice]).click()
 
@@ -284,7 +284,7 @@ class LinksPage(BasePage):
         url = 'https://demoqa.com'
         if endpoint == '/invalid-url':
             self.element_is_present(self.locators.INVALID_URL_LINK).click()
-            response = requests.get(f'{url}' + f'{endpoint}')
+            response = requests.get(f'{url}'+f'{endpoint}')
             return response.status_code
         if endpoint == "/forbidden":
             self.element_is_present(self.locators.FORBIDDEN_LINK).click()
@@ -326,8 +326,7 @@ class FilePage(BasePage):
         return file_name.split('/')[-1], text.split('\\')[-1]
 
     def download_file(self):
-        link = self.element_is_present(
-            self.locators.DOWNLOAD_FILE).get_attribute('href')
+        link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
         link_b = base64.b64decode(link)
         path_name_file = rf'/Users/markositis/Downloads/filetest{random.randint(0, 999)}.jpeg'
         with open(path_name_file, 'wb+') as f:

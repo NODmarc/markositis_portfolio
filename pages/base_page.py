@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
@@ -52,3 +54,5 @@ class BasePage:
         self.driver.switch_to.window(self.driver.window_handles[1])
         url = self.driver.current_url
         return url
+
+
