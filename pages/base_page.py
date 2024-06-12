@@ -55,4 +55,5 @@ class BasePage:
         url = self.driver.current_url
         return url
 
-
+    def switch_to_alert(self):
+        return self.driver.switch_to.alert
