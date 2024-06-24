@@ -6,7 +6,8 @@ from selenium.webdriver.support.select import Select
 from enums.years import YEAR_LIST
 from generator.generator import generated_date
 from locators.widgets_locators import AccordianPageLocators, \
-    DataPickerPageLocators, SliderPageLocators, ProgressBarLocators
+    DataPickerPageLocators, SliderPageLocators, ProgressBarLocators, \
+    TabsPageLocators
 from pages.base_page import BasePage
 
 
@@ -114,3 +115,37 @@ class ProgressBarPage(BasePage):
         return value_before, value_after_stop, value_after_reset
 
 
+class TabsPage(BasePage):
+    locators = TabsPageLocators()
+
+    def check_tabs(self, tab_name):
+        tabs_name = {
+            'what':
+                {
+                    'title': self.locators.WHAT_TAB,
+                    'text': self.locators.WHAT_TAB_TEXT
+                },
+            'origin':
+                {
+                    'title': self.locators.ORIGIN_TAB,
+                    'text': self.locators.ORIGIN_TAB_TEXT
+                },
+            'use':
+                {
+                    'title': self.locators.USE_TAB,
+                    'text': self.locators.USE_TAB_TEXT
+                },
+            'more':
+                {
+                    'title': self.locators.MORE_TAB,
+                    'text': self.locators.MORE_TAB_TEXT
+                }
+        }
+        tab_title = self.element_is_visible(tabs_name[tab_name]['title']).text
+        self.element_is_visible(tabs_name[tab_name]['title']).click()
+        tab_content = self.element_is_visible(tabs_name[tab_name]['text']).text
+        return [tab_title, len(tab_content)]
+
+    def get_tab_title(self, locator):
+        get_title = self.element_is_visible(locator).text
+        return get_title

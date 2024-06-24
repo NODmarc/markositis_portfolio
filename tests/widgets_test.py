@@ -1,7 +1,8 @@
 from enums import accordians as acc
 from pages.autocomplete_page import AutocompletePage
 from pages.widgets_page import AccordianPage, SliderPage, DataPickerPage, \
-    ProgressBarPage
+    ProgressBarPage, TabsPage
+from locators.widgets_locators import TabsPageLocators as tpl
 
 
 class TestWidgets:
@@ -84,9 +85,23 @@ class TestWidgets:
     class TestProgressBar:
 
         def test_progress_bar(self, driver):
-            progress_bar = ProgressBarPage(driver,'https://demoqa.com/progress-bar')
+            progress_bar = ProgressBarPage(driver,
+                                           'https://demoqa.com/progress-bar')
             progress_bar.open()
             value_before, value_after_stop, value_after_reset = progress_bar.check_progress_bar_value()
             assert value_before == '0', 'Incorrect start value in progress bar'
             assert value_after_stop == '40' or '50' or '60', 'Incorrect stop value in progress bar'
             assert value_after_reset == '0', 'Incorrect reset value in progress bar'
+
+    class TestTabs:
+        def test_tabs(self, driver):
+            tabs_page = TabsPage(driver, 'https://demoqa.com/tabs')
+            tabs_page.open()
+            what_tab_title, what_tab_content = tabs_page.check_tabs('what')
+            origin_tab_title, origin_tab_content = tabs_page.check_tabs('origin')
+            use_tab_title, use_tab_content = tabs_page.check_tabs('use')
+            more_tab_title = tabs_page.get_tab_title(tpl.MORE_TAB)
+            assert what_tab_title == 'What' and what_tab_content != 0, 'The tab "what" was not pressed or the text is missing'
+            assert origin_tab_title == 'Origin' and origin_tab_content != 0, 'The tab "origin" was not pressed or the text is missing'
+            assert use_tab_title == 'Use' and use_tab_content != 0, 'The tab "use" was not pressed or the text is missing'
+            assert more_tab_title == 'More', 'The tab "more" text is missing'

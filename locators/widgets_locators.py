@@ -49,3 +49,22 @@ class ProgressBarLocators:
                     "button[id='resetButton']")
     PROGRESS_BAR_VALUE = (By.CSS_SELECTOR,
                     "div[class='progress-bar bg-info']")
+
+
+class TabsPageLocators:
+    WHAT_TAB = (By.CSS_SELECTOR,
+                    "a[id='demo-tab-what']")
+    WHAT_TAB_TEXT = (By.CSS_SELECTOR,
+                    "div[id='demo-tabpane-what'] p")
+    ORIGIN_TAB = (By.CSS_SELECTOR,
+                "a[id='demo-tab-origin']")
+    ORIGIN_TAB_TEXT = (By.CSS_SELECTOR,
+                     "div[id='demo-tabpane-origin'] p")
+    USE_TAB = (By.CSS_SELECTOR,
+                  "a[id='demo-tab-use']")
+    USE_TAB_TEXT = (By.CSS_SELECTOR,
+                       "div[id='demo-tabpane-use'] p")
+    MORE_TAB = (By.CSS_SELECTOR,
+               "a[id='demo-tab-more']")
+    MORE_TAB_TEXT = (By.CSS_SELECTOR,
+                       "div[id='demo-tabpane-more'] p")
