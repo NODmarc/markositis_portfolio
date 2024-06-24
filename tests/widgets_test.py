@@ -1,7 +1,7 @@
 from enums import accordians as acc
 from pages.autocomplete_page import AutocompletePage
 from pages.widgets_page import AccordianPage, SliderPage, DataPickerPage, \
-    ProgressBarPage, TabsPage
+    ProgressBarPage, TabsPage, TooltipsPage
 from locators.widgets_locators import TabsPageLocators as tpl
 
 
@@ -105,3 +105,13 @@ class TestWidgets:
             assert origin_tab_title == 'Origin' and origin_tab_content != 0, 'The tab "origin" was not pressed or the text is missing'
             assert use_tab_title == 'Use' and use_tab_content != 0, 'The tab "use" was not pressed or the text is missing'
             assert more_tab_title == 'More', 'The tab "more" text is missing'
+
+    class TestTooltips:
+        def test_tooltips(self, driver):
+            tooltip_page = TooltipsPage(driver, 'https://demoqa.com/tool-tips')
+            tooltip_page.open()
+            button, field, contrary, section = tooltip_page.check_tooltips()
+            assert button == 'You hovered over the Button', 'Text in tooltip is not correct'
+            assert field == 'You hovered over the text field', 'Text in tooltip is not correct'
+            assert contrary == 'You hovered over the Contrary', 'Text in tooltip is not correct'
+            assert section == 'You hovered over the 1.10.32', 'Text in tooltip is not correct'

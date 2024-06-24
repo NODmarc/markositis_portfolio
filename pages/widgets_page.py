@@ -7,7 +7,7 @@ from enums.years import YEAR_LIST
 from generator.generator import generated_date
 from locators.widgets_locators import AccordianPageLocators, \
     DataPickerPageLocators, SliderPageLocators, ProgressBarLocators, \
-    TabsPageLocators
+    TabsPageLocators, TooltipPageLocators
 from pages.base_page import BasePage
 
 
@@ -149,3 +149,24 @@ class TabsPage(BasePage):
     def get_tab_title(self, locator):
         get_title = self.element_is_visible(locator).text
         return get_title
+
+
+class TooltipsPage(BasePage):
+    locators = TooltipPageLocators()
+
+    def get_text_from_tooltip(self, hover_elem, wait_elem):
+        element = self.element_is_present(hover_elem)
+        self.action_move_to_el(element)
+        self.element_is_visible(wait_elem)
+        time.sleep(1)
+        tooltip_text = self.element_is_visible(self.locators.TOOLTIPS)
+        text = tooltip_text.text
+        return text
+
+    def check_tooltips(self):
+        tooltip_button = self.get_text_from_tooltip(self.locators.BUTTON, self.locators.BUTTON_TOOLTIP)
+        tooltip_field = self.get_text_from_tooltip(self.locators.INPUT_FIELD, self.locators.INPUT_TOOLTIP)
+        tooltip_contrary = self.get_text_from_tooltip(self.locators.CONTRARY_TEXT, self.locators.CONTRARY_TOOLTIP)
+        tooltip_section = self.get_text_from_tooltip(self.locators.SECTION_TEXT, self.locators.SECTION_TOOLTIP)
+        return tooltip_button, tooltip_field, tooltip_contrary, tooltip_section
+
