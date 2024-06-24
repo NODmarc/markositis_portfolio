@@ -63,3 +63,8 @@ class BasePage:
 
     def switch_to_default_content(self):
         return self.driver.switch_to.default_content()
+
+    def drag_and_drop(self, element, x, y):
+        action = ActionChains(self.driver)
+        action.drag_and_drop_by_offset(element, x, y)
+        action.perform()
