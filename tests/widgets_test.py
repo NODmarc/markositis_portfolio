@@ -1,7 +1,7 @@
 from enums import accordians as acc
 from pages.autocomplete_page import AutocompletePage
 from pages.widgets_page import AccordianPage, SliderPage, DataPickerPage, \
-    ProgressBarPage, TabsPage, TooltipsPage
+    ProgressBarPage, TabsPage, TooltipsPage, MenuPage
 from locators.widgets_locators import TabsPageLocators as tpl
 
 
@@ -90,20 +90,26 @@ class TestWidgets:
             progress_bar.open()
             value_before, value_after_stop, value_after_reset = progress_bar.check_progress_bar_value()
             assert value_before == '0', 'Incorrect start value in progress bar'
-            assert value_after_stop == '40' or '50' or '60', 'Incorrect stop value in progress bar'
-            assert value_after_reset == '0', 'Incorrect reset value in progress bar'
+            assert value_after_stop == '40' or '50' or '60', \
+                'Incorrect stop value in progress bar'
+            assert value_after_reset == '0', \
+                'Incorrect reset value in progress bar'
 
     class TestTabs:
         def test_tabs(self, driver):
             tabs_page = TabsPage(driver, 'https://demoqa.com/tabs')
             tabs_page.open()
             what_tab_title, what_tab_content = tabs_page.check_tabs('what')
-            origin_tab_title, origin_tab_content = tabs_page.check_tabs('origin')
+            origin_tab_title, origin_tab_content = tabs_page.check_tabs(
+                'origin')
             use_tab_title, use_tab_content = tabs_page.check_tabs('use')
             more_tab_title = tabs_page.get_tab_title(tpl.MORE_TAB)
-            assert what_tab_title == 'What' and what_tab_content != 0, 'The tab "what" was not pressed or the text is missing'
-            assert origin_tab_title == 'Origin' and origin_tab_content != 0, 'The tab "origin" was not pressed or the text is missing'
-            assert use_tab_title == 'Use' and use_tab_content != 0, 'The tab "use" was not pressed or the text is missing'
+            assert what_tab_title == 'What' and what_tab_content != 0, \
+                'The tab "what" was not pressed or the text is missing'
+            assert origin_tab_title == 'Origin' and origin_tab_content != 0, \
+                'The tab "origin" was not pressed or the text is missing'
+            assert use_tab_title == 'Use' and use_tab_content != 0, \
+                'The tab "use" was not pressed or the text is missing'
             assert more_tab_title == 'More', 'The tab "more" text is missing'
 
     class TestTooltips:
@@ -111,7 +117,22 @@ class TestWidgets:
             tooltip_page = TooltipsPage(driver, 'https://demoqa.com/tool-tips')
             tooltip_page.open()
             button, field, contrary, section = tooltip_page.check_tooltips()
-            assert button == 'You hovered over the Button', 'Text in tooltip is not correct'
-            assert field == 'You hovered over the text field', 'Text in tooltip is not correct'
-            assert contrary == 'You hovered over the Contrary', 'Text in tooltip is not correct'
-            assert section == 'You hovered over the 1.10.32', 'Text in tooltip is not correct'
+            assert button == 'You hovered over the Button', \
+                'Text in tooltip is not correct or hover is missing'
+            assert field == 'You hovered over the text field', \
+                'Text in tooltip is not correct or hover is missing'
+            assert contrary == 'You hovered over the Contrary', \
+                'Text in tooltip is not correct or hover is missing'
+            assert section == 'You hovered over the 1.10.32', \
+                'Text in tooltip is not correct or hover is missing'
+
+    class TestMenu:
+        def test_menu(self, driver):
+            menu_page = MenuPage(driver, "https://demoqa.com/menu")
+            menu_page.open()
+            data = menu_page.check_menu()
+            assert data == ['Main Item 1', 'Main Item 2', 'Sub Item',
+                            'Sub Item', 'SUB SUB LIST »', 'Sub Sub Item 1',
+                            'Sub Sub Item 2', 'Main Item 3'], \
+                'Menu text is incorrect or menu not clickable'
+
