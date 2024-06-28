@@ -227,7 +227,7 @@ class WebTablePage(BasePage):
             self.go_to_element(count_row_btn)
             count_row_btn.click()
             self.element_is_visible(
-                (By.CSS_SELECTOR, f'option[value="x"]')).click()
+                (By.CSS_SELECTOR, f'option[value="{x}"]')).click()
             data.append(self.check_count_rows())
 
     def check_count_rows(self):

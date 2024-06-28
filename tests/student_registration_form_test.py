@@ -11,5 +11,3 @@ class TestStudentRegistrationFrom:
         input_result = submit_form.fill_registration_form()
         output_result = submit_form.check_filled_form()
         assert input_result == output_result
-
-
