@@ -179,3 +179,11 @@ class TestWidgets:
             select_menu_page.open()
             output = select_menu_page.select_multi_dropdown(COLORS)
             assert output == COLORS, 'Cannot input colors in select or colors text is incorrect'
+
+        def test_standard_multi_select(self, driver):
+            select_menu_page = SelectMenuPage(driver,
+                                              'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            opt = select_menu_page.select_standard_multiselect(
+                random.choice(['volvo', 'saab', 'opel', 'audi']))
+            assert opt in ['Volvo', 'Saab', 'Opel', 'Audi']

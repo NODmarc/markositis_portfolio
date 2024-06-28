@@ -225,3 +225,9 @@ class SelectMenuPage(BasePage):
             select_dropdown.send_keys(Keys.ENTER)
             output.append(color)
         return output
+
+    def select_standard_multiselect(self, value):
+        self.select_multi_options(self.element_is_visible(self.locators.STANDARD_MULTI_SELECT), value)
+        opt = self.get_all_selected_opt(self.element_is_visible(self.locators.STANDARD_MULTI_SELECT))
+        return opt
+

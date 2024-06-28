@@ -2,6 +2,7 @@ import time
 
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
 
@@ -73,3 +74,12 @@ class BasePage:
         action = ActionChains(self.driver)
         action.move_to_element(element)
         action.perform()
+
+    def select_multi_options(self, elem, value):
+        select = Select(elem)
+        select.select_by_value(value)
+
+    def get_all_selected_opt(self, elem):
+        select = Select(elem)
+        opt = select.first_selected_option.text
+        return opt
