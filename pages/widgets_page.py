@@ -1,13 +1,15 @@
 import random
 import time
 
+from selenium.webdriver import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 from enums.years import YEAR_LIST
 from generator.generator import generated_date
 from locators.widgets_locators import AccordianPageLocators, \
     DataPickerPageLocators, SliderPageLocators, ProgressBarLocators, \
-    TabsPageLocators, TooltipPageLocators, MenuPageLocators
+    TabsPageLocators, TooltipPageLocators, MenuPageLocators, SelectMenuLocators
 from pages.base_page import BasePage
 
 
@@ -91,10 +93,12 @@ class SliderPage(BasePage):
     locators = SliderPageLocators()
 
     def change_slider_value(self):
-        value_before = self.element_is_visible(self.locators.SLIDER_RESULT).get_attribute('value')
+        value_before = self.element_is_visible(
+            self.locators.SLIDER_RESULT).get_attribute('value')
         slider_input = self.element_is_visible(self.locators.SLIDER_INPUT)
         self.drag_and_drop(slider_input, random.randint(1, 100), 0)
-        value_after = self.element_is_visible(self.locators.SLIDER_RESULT).get_attribute('value')
+        value_after = self.element_is_visible(
+            self.locators.SLIDER_RESULT).get_attribute('value')
         return value_before, value_after
 
 
@@ -102,16 +106,20 @@ class ProgressBarPage(BasePage):
     locators = ProgressBarLocators()
 
     def check_progress_bar_value(self):
-        value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
-        progress_bar_start = self.element_is_visible(self.locators.START_STOP_BUTTON)
+        value_before = self.element_is_present(
+            self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
+        progress_bar_start = self.element_is_visible(
+            self.locators.START_STOP_BUTTON)
         progress_bar_start.click()
         time.sleep(random.randint(4, 6))
         self.element_is_visible(self.locators.START_STOP_BUTTON).click()
-        value_after_stop = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
+        value_after_stop = self.element_is_present(
+            self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
         progress_bar_start.click()
         time.sleep(5)
         self.element_is_visible(self.locators.RESET_BUTTON).click()
-        value_after_reset = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
+        value_after_reset = self.element_is_present(
+            self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
         return value_before, value_after_stop, value_after_reset
 
 
@@ -164,10 +172,14 @@ class TooltipsPage(BasePage):
         return text
 
     def check_tooltips(self):
-        tooltip_button = self.get_text_from_tooltip(self.locators.BUTTON, self.locators.BUTTON_TOOLTIP)
-        tooltip_field = self.get_text_from_tooltip(self.locators.INPUT_FIELD, self.locators.INPUT_TOOLTIP)
-        tooltip_contrary = self.get_text_from_tooltip(self.locators.CONTRARY_TEXT, self.locators.CONTRARY_TOOLTIP)
-        tooltip_section = self.get_text_from_tooltip(self.locators.SECTION_TEXT, self.locators.SECTION_TOOLTIP)
+        tooltip_button = self.get_text_from_tooltip(self.locators.BUTTON,
+                                                    self.locators.BUTTON_TOOLTIP)
+        tooltip_field = self.get_text_from_tooltip(self.locators.INPUT_FIELD,
+                                                   self.locators.INPUT_TOOLTIP)
+        tooltip_contrary = self.get_text_from_tooltip(
+            self.locators.CONTRARY_TEXT, self.locators.CONTRARY_TOOLTIP)
+        tooltip_section = self.get_text_from_tooltip(
+            self.locators.SECTION_TEXT, self.locators.SECTION_TOOLTIP)
         return tooltip_button, tooltip_field, tooltip_contrary, tooltip_section
 
 
@@ -183,3 +195,33 @@ class MenuPage(BasePage):
         return data
 
 
+class SelectMenuPage(BasePage):
+    locators = SelectMenuLocators()
+
+    def select_value(self, field, options, value):
+        self.element_is_visible(field).click()
+        self.element_is_visible(options).click()
+        value = self.element_is_visible(value).text
+        return value
+
+    def get_old_menu_options(self):
+        data = self.element_are_visible(self.locators.OLD_SELECT_MENU_OPTIONS)
+        list_opt = []
+        for i in data:
+            list_opt.append(i.text)
+        return list_opt
+
+    def select_value_old(self):
+        self.element_is_visible(self.locators.OLD_SELECT_MENU).click()
+        self.element_is_visible(self.locators.OLD_MENU_OPTIONS).click()
+        value = self.element_is_visible(self.locators.OLD_MENU_OPTIONS).text
+        return value
+
+    def select_multi_dropdown(self, colors):
+        select_dropdown = self.element_is_visible(self.locators.MULTISELECT_INPUT)
+        output = []
+        for color in colors:
+            select_dropdown.send_keys(color)
+            select_dropdown.send_keys(Keys.ENTER)
+            output.append(color)
+        return output

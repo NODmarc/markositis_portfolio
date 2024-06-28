@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 
 
@@ -93,3 +95,25 @@ class TooltipPageLocators:
 
 class MenuPageLocators:
     MENU_ITEM_LIST = (By.CSS_SELECTOR, "ul[id='nav'] li a")
+
+
+class SelectMenuLocators:
+    SELECT_FIELD = (By.CSS_SELECTOR, "div[id='withOptGroup']")
+    SELECT_OPTIONS_LIST = (By.CSS_SELECTOR, "div[class=' css-11unzgr']")
+    SELECT_OPTIONS_1 = (By.CSS_SELECTOR, "div[id='react-select-2-option-0-0']")
+    SELECT_OPTIONS_2 = (By.CSS_SELECTOR, "div[id='react-select-2-option-0-1']")
+    SELECT_OPTIONS_3 = (By.CSS_SELECTOR, "div[id='react-select-2-option-2']")
+    SELECT_OPTIONS_4 = (By.CSS_SELECTOR, "div[id='react-select-2-option-3']")
+    SELECT_VALUE = (By.CSS_SELECTOR, "div[class=' css-1uccc91-singleValue']")
+
+    SELECT_ONE = (By.CSS_SELECTOR, "div[id='selectOne']")
+    SELECT_TITLE = (By.CSS_SELECTOR, fr"div[id='react-select-3-option-0-{random.randint(0, 5)}']")
+
+    OLD_SELECT_MENU = (By.CSS_SELECTOR, "select[id='oldSelectMenu']")
+    OLD_SELECT_MENU_OPTIONS = (By.CSS_SELECTOR, "select[id='oldSelectMenu'] option")
+    OLD_MENU_OPTIONS = (By.CSS_SELECTOR, f"option[value='{random.choice(['red', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])}']")
+
+    MULTISELECT_DROP_DOWN = (By.CSS_SELECTOR, "div[class=' css-1hwfws3']")
+    MULTISELECT_INPUT = (By.CSS_SELECTOR, "input[id='react-select-4-input']")
+
+    STANDARD_MULTI_SELECT = (By.CSS_SELECTOR, "select[id='cars']")

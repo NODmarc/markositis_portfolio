@@ -1,8 +1,12 @@
+import random
+
 from enums import accordians as acc
+from enums.select_menu_values import OPTIONS, PREFIX_OPTIONS, COLORS
+from locators.widgets_locators import SelectMenuLocators as sml
+from locators.widgets_locators import TabsPageLocators as tpl
 from pages.autocomplete_page import AutocompletePage
 from pages.widgets_page import AccordianPage, SliderPage, DataPickerPage, \
-    ProgressBarPage, TabsPage, TooltipsPage, MenuPage
-from locators.widgets_locators import TabsPageLocators as tpl
+    ProgressBarPage, TabsPage, TooltipsPage, MenuPage, SelectMenuPage
 
 
 class TestWidgets:
@@ -136,3 +140,42 @@ class TestWidgets:
                             'Sub Sub Item 2', 'Main Item 3'], \
                 'Menu text is incorrect or menu not clickable'
 
+    class TestSelectMenu:
+        def test_select_value(self, driver):
+            select_menu_page = SelectMenuPage(driver,
+                                              'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            value = select_menu_page.select_value(sml.SELECT_FIELD,
+                                                  random.choice(
+                                                      [sml.SELECT_OPTIONS_1,
+                                                       sml.SELECT_OPTIONS_2,
+                                                       sml.SELECT_OPTIONS_3,
+                                                       sml.SELECT_OPTIONS_4]),
+                                                  sml.SELECT_VALUE)
+            assert value in OPTIONS, \
+                'Cannot select value or text is not correct'
+
+        def test_select_one(self, driver):
+            select_menu_page = SelectMenuPage(driver,
+                                              'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            value = select_menu_page.select_value(sml.SELECT_ONE,
+                                                  sml.SELECT_TITLE,
+                                                  sml.SELECT_VALUE)
+            assert value in PREFIX_OPTIONS, \
+                'Cannot select value or text is not correct'
+
+        def test_old_style_select_menu(self, driver):
+            select_menu_page = SelectMenuPage(driver,
+                                              'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            options = select_menu_page.get_old_menu_options()
+            value = select_menu_page.select_value_old()
+            assert value in options, 'Cannot select value or text is not correct'
+
+        def test_multi_select_drop_down(self, driver):
+            select_menu_page = SelectMenuPage(driver,
+                                              'https://demoqa.com/select-menu')
+            select_menu_page.open()
+            output = select_menu_page.select_multi_dropdown(COLORS)
+            assert output == COLORS, 'Cannot input colors in select or colors text is incorrect'
