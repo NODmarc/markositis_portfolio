@@ -44,3 +44,21 @@ class InteractionPageLocators:
     REVERT_WILL_REVERT = (By.CSS_SELECTOR, "div[id='revertable']")
     REVERT_NOT_REVERT = (By.CSS_SELECTOR, "div[id='notRevertable']")
 
+    # draggable page locators
+    DRAGGABLE_SIMPLE_TAB = (By.CSS_SELECTOR, "a[id='draggableExample-tab-simple']")
+    DRAGGABLE_SIMPLE_DRAG_ME = (By.CSS_SELECTOR, "div[id='dragBox']")
+
+    AXIS_RESTRICTED_TAB = (By.CSS_SELECTOR, "a[id='draggableExample-tab-axisRestriction']")
+    AXIS_RESTRICTED_X = (By.CSS_SELECTOR, "div[id='restrictedX']")
+    AXIS_RESTRICTED_Y = (By.CSS_SELECTOR, "div[id='restrictedY']")
+
+    CONTAINER_RESTRICTED_TAB = (By.CSS_SELECTOR, "a[id='draggableExample-tab-containerRestriction']")
+    CONTAINER_RESTRICTED_CONTAINED_WITH_BOX = (By.CSS_SELECTOR, "#containmentWrapper div")
+    CONTAINER_RESTRICTED_CONTAINED_WITH_PARENT = (By.CSS_SELECTOR, '//span[text()="I\'m contained within my parent"]')
+
+    CURSOR_STYLE_TAB = (By.CSS_SELECTOR, "a[id='draggableExample-tab-cursorStyle']")
+    CURSOR_STYLE_CENTER = (By.CSS_SELECTOR, "#cursorCenter")
+    CURSOR_STYLE_TOP_LEFT = (By.CSS_SELECTOR, "#cursorTopLeft")
+    CURSOR_STYLE_BOTTOM = (By.CSS_SELECTOR, "#cursorBottom")
+
+

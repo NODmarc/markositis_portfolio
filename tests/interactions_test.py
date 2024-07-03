@@ -42,13 +42,16 @@ class TestInteractionsPage:
             resizable_page = InteractionsPage(driver,
                                               'https://demoqa.com/resizable')
             resizable_page.open()
-            max_size_box, min_size_box = resizable_page.change_size_resizable_box()
-            max_resize, min_resize = resizable_page.change_size_resizable()
-            assert max_size_box == (
-            '500px', '300px'), 'Max size not equal 500x300'
-            assert min_size_box == (
-            '150px', '150px'), 'Min size not equal 150x150'
-            assert max_resize != min_resize, 'resizable has not been changed'
+            max_size_box, min_size_box = resizable_page \
+                .change_size_resizable_box("standard_box")
+            max_resize, min_resize = resizable_page. \
+                change_size_resizable_box("free_box")
+            assert max_size_box == ('500px', '300px'), \
+                'Max size not equal 500x300'
+            assert min_size_box == ('150px', '150px'), \
+                'Min size not equal 150x150'
+            assert max_resize != min_resize, \
+                'Resizable has not been changed'
 
     class TestDroppable:
         def test_droppable(self, driver):
@@ -65,4 +68,25 @@ class TestInteractionsPage:
             not_acceptable_text, acceptable_text = droppable_page.drop_accept()
             assert not_acceptable_text != 'Dropped!', 'No element find or element is dropped'
             assert acceptable_text == "Dropped!", 'No element find or cannot be moved'
+
+    class TestDraggable:
+        def test_draggable(self, driver):
+            draggable_page = InteractionsPage(driver,
+                                              'https://demoqa.com/dragabble')
+            draggable_page.open()
+            before, after = draggable_page.simple_drag_box()
+            assert before != after, "The simble box has not been changed"
+
+        def test_axis_restricted(self, driver):
+            draggable_page = InteractionsPage(driver,
+                                              'https://demoqa.com/dragabble')
+            draggable_page.open()
+            top_x, left_x = draggable_page.check_axis_x_y('only_x')
+            top_y, left_y = draggable_page.check_axis_x_y('only_y')
+            assert top_x[0][0] == top_x[1][0] and int(top_x[1][0]) == 0, 'The x-axis box has not been changed'
+            assert left_x[0][0] != left_x[1][0] and int(left_x[1][0]) != 0, 'The x-axis box has not been changed'
+            assert top_y[0][0] != top_y[1][0] and int(top_y[1][0]) != 0, 'The y-axis box has not been changed'
+            assert left_y[0][0] == left_y[1][0] and int(left_y[1][0]) == 0, 'The y-axis box has not been changed'
+
+
 
