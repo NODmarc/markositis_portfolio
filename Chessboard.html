@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>  
+  <body>
+
+  <h1 aria-setsize="50">TEST PAGE</h1> 
+  <div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia corrupti odio impedit laboriosam quaerat perferendis quia ipsa ab in officia vero illum deleniti deserunt, vel, amet, explicabo optio! Incidunt, modi.
+  <div>
+
+
+  </body>
+<script>
+
+function createChessboard() {
+    const size = 8;
+    let chessboard = "";
+
+    for (let row = 0; row < size; row++) {
+        for (let col = 0; col < size; col++) {
+            if ((row + col) % 2 === 0) {
+                chessboard += " ";
+            } else {
+                chessboard += "#";
+            }
+        }
+        chessboard += "\n";
+    }
+
+    return chessboard;
+}
+
+console.log(createChessboard());
+
+</script>
+</html>
