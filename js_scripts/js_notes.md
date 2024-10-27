@@ -51,3 +51,7 @@ string = empty row = 0, not empty = number
 # Ternary operator 
 ? 
 conditions ? value1 : value2
+
+
+# Class
+Это шаблон, прототип. 
