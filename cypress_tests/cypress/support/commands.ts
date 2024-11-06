@@ -23,3 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+
+Cypress.Commands.add("clickElement", (element: string) => {
+  cy.get(element).should("exist").click();
+});
+
+Cypress.Commands.add("typeText", (field, text) => {
+  cy.get(field).should("exist").type(text);
+});
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      clickElement <E extends Node = HTMLElement>(element: string): Cypress.Chainable<JQuery<E>>
+      typeText(field: string, text: string): Chainable<void>;
+    }
+  }
+}
