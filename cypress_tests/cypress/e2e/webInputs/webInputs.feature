@@ -9,4 +9,4 @@ Feature: Submit form
         When user press button Display Inputs
         Then user sees own data
         When user press button Clear Inputs
-        Then user sees blank fieldss
+        Then user sees blank fields
