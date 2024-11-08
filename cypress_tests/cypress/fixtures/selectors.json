@@ -1,3 +1,4 @@
 {
-    ""
+    "webInputsPage": "[href*='inputs']",
+    "loginPage": "a[href='/login']"
 }

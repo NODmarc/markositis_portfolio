@@ -1,4 +1,4 @@
-export class WebInputs {
+export class WebInputsPage {
   elements = {
     // Input fields
     numberField: () => cy.get('input[id*="input-number"]'),
@@ -18,20 +18,20 @@ export class WebInputs {
   };
 
   inputNumber(num: string) {
-    this.elements.numberField().type(num);
+    this.elements.numberField().should('be.visible').type(num);
   }
 
   inputText(name: string) {
-    this.elements.textField().type(name);
+    this.elements.textField().should('be.visible').type(name);
   }
 
   inputPassword(name: string) {
-    this.elements.passwordField().type(name);
+    this.elements.passwordField().should('be.visible').type(name);
   }
 
   inputDate(name: string) {
-    this.elements.dateField().type(name);
+    this.elements.dateField().should('be.visible').type(name);
   }
 
 }
-export const webInputs = new WebInputs();
+export const webInputsPage = new WebInputsPage();
